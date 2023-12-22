@@ -9,8 +9,8 @@ public class Player : MonoBehaviour
     public int health;
     public float jumpForce;
     [Header("Booleans")]
-    public bool isGrounded;
     public bool isJumping;
+    public bool isAttacking;
     [Header("Others")]
     public Animator anim;
     public Rigidbody2D rig;
@@ -26,6 +26,7 @@ public class Player : MonoBehaviour
     void Update()
     {
         Jump();
+        playAttack();
     }
     // Update is called once per frame
     void FixedUpdate()
@@ -43,28 +44,36 @@ public class Player : MonoBehaviour
 
         if (inputX > 0)
         {
-            anim.SetInteger("transition", 1);
             sprite.flipX = false;
+            if (!isJumping)
+            {
+                anim.SetInteger("transition", 1);
+            }
         }
         else if (inputX < 0)
         {
-            anim.SetInteger("transition", 1);
             sprite.flipX = true;
+            if (!isJumping)
+            {
+                anim.SetInteger("transition", 1);
+            }
+
         }
-        if(inputX == 0)
+        if(inputX == 0 && !isJumping)
         {
             anim.SetInteger("transition", 0);
         }
+        
     }
 
     void Jump()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (isGrounded)
+            if (!isJumping)
             {
                 rig.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-                isGrounded = false;
+                isJumping = true;
                 anim.SetInteger("transition", 2);
             }
             
@@ -75,7 +84,23 @@ public class Player : MonoBehaviour
     {
         if (collision.collider.CompareTag("Ground"))
         {
-            isGrounded = true;
+            isJumping = false;
+        }
+        
+    }
+    void playAttack()
+    {
+        StartCoroutine("Attack");
+    }
+    IEnumerator Attack()
+    {
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            anim.SetInteger("transition", 3);
+            isAttacking = true;
+            yield return new WaitForSeconds(3f);
+            anim.SetInteger("transition", 0);
+            isAttacking = false;
         }
     }
 }

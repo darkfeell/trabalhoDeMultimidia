@@ -403,8 +403,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   health: 0
-  jumpForce: 10
-  isGrounded: 0
+  jumpForce: 5
   isJumping: 0
   anim: {fileID: 487480788}
   rig: {fileID: 487480792}
