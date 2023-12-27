@@ -405,6 +405,7 @@ MonoBehaviour:
   health: 0
   jumpForce: 5
   isJumping: 0
+  isAttacking: 0
   anim: {fileID: 487480788}
   rig: {fileID: 487480792}
   sprite: {fileID: 487480789}
@@ -587,7 +588,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 5e05a61cc8105664bbfdb7d5b92cbf26, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 4a87c7f6dc235774490bd8d0d72c36d5, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.1
   m_Pitch: 1
