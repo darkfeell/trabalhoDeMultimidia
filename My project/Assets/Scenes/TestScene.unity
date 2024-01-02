@@ -335,9 +335,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 487480787}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.342, y: -3.036, z: 0}
-  m_LocalScale: {x: 10.817573, y: 10.817573, z: 10.817573}
-  m_ConstrainProportionsScale: 0
+  m_LocalPosition: {x: -7.48, y: -3.036, z: 0}
+  m_LocalScale: {x: 11, y: 11, z: 11}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
@@ -404,11 +404,9 @@ MonoBehaviour:
   speed: 5
   health: 0
   jumpForce: 5
-  isJumping: 0
-  isAttacking: 0
-  anim: {fileID: 487480788}
-  rig: {fileID: 487480792}
-  sprite: {fileID: 487480789}
+  jumpSFX: {fileID: 8300000, guid: 0bb9f8cde87bee74585a51401a00f0a9, type: 3}
+  attackSFX: {fileID: 8300000, guid: 082d3989d85f8554abea3916c31bf6d5, type: 3}
+  stepSFX: {fileID: 8300000, guid: 93b3ab8174290a343889633b7b9e915f, type: 3}
 --- !u!1 &1541783232
 GameObject:
   m_ObjectHideFlags: 0
