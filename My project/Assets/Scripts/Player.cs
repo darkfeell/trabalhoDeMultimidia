@@ -1,13 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IDamageble
 {
     [Header("Variables")]
     public float speed;
-    public int health;
+    public float health;
     public float jumpForce;
 
     [Header("Move Settings")]
@@ -19,6 +19,7 @@ public class Player : MonoBehaviour
     bool isMoving;
     bool isJumping;
     bool isAttacking;
+    bool canTakeDamage;
 
     [Header("Others")]
     Animator anim;
@@ -30,11 +31,19 @@ public class Player : MonoBehaviour
     [SerializeField] AudioClip attackSFX;
     [SerializeField] AudioClip stepSFX;
 
+    [Header("Attack Settings")]
+    [SerializeField] GameObject arrow;
+    [SerializeField] Transform rightFirepoint;
+    [SerializeField] Transform leftFirepoint;
+    Transform currentFirepoint => lookingDirection > 0 ? rightFirepoint : leftFirepoint;
+
     void Awake()
     {
         rig = GetComponent<Rigidbody2D>();
         sprite = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
+        canTakeDamage = true;
+        lookingDirection = 1;
     }
 
     private void Update()
@@ -50,14 +59,16 @@ public class Player : MonoBehaviour
 
     void InputListener()
     {
-        inputDirection.Set(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-        moveDirection.Set(speed * inputDirection.x, rig.velocity.y);
-        lookingDirection = inputDirection.x != 0 ? inputDirection.x : lookingDirection;
-        isMoving = moveDirection.x != 0;
         if (Input.GetKeyDown(KeyCode.Space))
         {
             Jump();
         }
+
+        inputDirection.Set(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        moveDirection.Set(speed * inputDirection.x, rig.velocity.y);
+        lookingDirection = inputDirection.x != 0 ? inputDirection.x : lookingDirection;
+        isMoving = moveDirection.x != 0;
+        
 
         if (Input.GetKeyDown(KeyCode.K))
         {
@@ -82,7 +93,13 @@ public class Player : MonoBehaviour
     void Attack()
     {
         if (isAttacking) return;
+        
         StartCoroutine(AttackExec());
+    }
+
+    public void SpawnArrow()
+    {
+        Instantiate(arrow, currentFirepoint.position, currentFirepoint.rotation);
     }
 
     void GFXController()
@@ -146,5 +163,31 @@ public class Player : MonoBehaviour
         {
             isJumping = false;
         }
+    }
+
+    public void Damage(float damageValue)
+    {
+        if (!canTakeDamage) return;
+        StartCoroutine(DamageExec());
+        health -= damageValue;
+        if (health <= 0)
+        {
+            string sceneName = SceneManager.GetActiveScene().name;
+            SceneManager.LoadScene(sceneName);
+        }
+    }
+
+    IEnumerator DamageExec()
+    {
+        canTakeDamage = false;
+        for (int i = 0; i < 5; i++)
+        {
+            sprite.color = Color.red;
+            yield return new WaitForSeconds(.1f);
+            sprite.color = Color.white;
+            yield return new WaitForSeconds(.1f);
+        }
+        sprite.color = Color.white;
+        canTakeDamage = true;
     }
 }
