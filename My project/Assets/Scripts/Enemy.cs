@@ -12,6 +12,7 @@ public class Enemy : MonoBehaviour, IDamageble
     [SerializeField] float m_speed;
     [SerializeField] Timer m_timer;
     [SerializeField] float m_health;
+    [SerializeField] AudioClip damageSFX;
     private void Update()
     {
         m_spriteRenderer.flipX = m_moveDirection == MoveDirection.Right;
@@ -48,6 +49,7 @@ public class Enemy : MonoBehaviour, IDamageble
     public void Damage(float damageValue)
     {
         m_health -= damageValue;
+        AudioSource.PlayClipAtPoint(damageSFX, transform.position);
         m_animator.SetTrigger("Damage");
         StartCoroutine(StopMovingByTime(0.5f));
         if (m_health <= 0)

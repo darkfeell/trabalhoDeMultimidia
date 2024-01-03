@@ -30,6 +30,7 @@ public class Player : MonoBehaviour, IDamageble
     [SerializeField] AudioClip jumpSFX;
     [SerializeField] AudioClip attackSFX;
     [SerializeField] AudioSource stepSFX;
+    [SerializeField] AudioClip damageSFX;
 
     [Header("Attack Settings")]
     [SerializeField] GameObject arrow;
@@ -169,6 +170,7 @@ public class Player : MonoBehaviour, IDamageble
     public void Damage(float damageValue)
     {
         if (!canTakeDamage) return;
+        AudioSource.PlayClipAtPoint(damageSFX, transform.position);
         StartCoroutine(DamageExec());
         health -= damageValue;
         if (health <= 0)

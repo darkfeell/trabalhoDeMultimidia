@@ -176,6 +176,7 @@ MonoBehaviour:
   jumpSFX: {fileID: 8300000, guid: 0bb9f8cde87bee74585a51401a00f0a9, type: 3}
   attackSFX: {fileID: 8300000, guid: 082d3989d85f8554abea3916c31bf6d5, type: 3}
   stepSFX: {fileID: 4909042369407641974}
+  damageSFX: {fileID: 8300000, guid: a9519b305949f5941b93d3cc8081b0fb, type: 3}
   arrow: {fileID: 4409361312507156372, guid: 90491ad916ce489428b98a890e4b1152, type: 3}
   rightFirepoint: {fileID: 158996000301035022}
   leftFirepoint: {fileID: 4769226219134249812}
