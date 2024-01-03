@@ -26,6 +26,9 @@ public class Arrow : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy"))
         {
             collision.gameObject.GetComponent<IDamageble>().Damage(1);
+        }
+        if (!collision.gameObject.CompareTag("Player"))
+        {
             DeathArrow();
         }
     }

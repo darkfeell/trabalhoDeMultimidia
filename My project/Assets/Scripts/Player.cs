@@ -29,7 +29,7 @@ public class Player : MonoBehaviour, IDamageble
     [Header("SFX")]
     [SerializeField] AudioClip jumpSFX;
     [SerializeField] AudioClip attackSFX;
-    [SerializeField] AudioClip stepSFX;
+    [SerializeField] AudioSource stepSFX;
 
     [Header("Attack Settings")]
     [SerializeField] GameObject arrow;
@@ -152,7 +152,8 @@ public class Player : MonoBehaviour, IDamageble
 
     public void StepSound()
     {
-        AudioSource.PlayClipAtPoint(stepSFX, transform.position);
+        //AudioSource.PlayClipAtPoint(stepSFX, transform.position);
+        stepSFX.Play();
     }
 
     private void OnCollisionStay2D(Collision2D collision)
